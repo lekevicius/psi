@@ -1,0 +1,43 @@
+<template name="page">
+  {{> navbar }}
+  <div class="container panel-holder panel-open-{{ openPanel }}">
+    <div class="row panel-active-games panel">{{> panelActiveGames }}</div>
+    <div class="row panel-invitations panel">{{> panelInvitations }}</div>
+    <div class="row panel-game-archive panel">{{> panelGameArchive }}</div>
+    <div class="row panel-all-users panel">{{> panelAllUsers }}</div>
+  </div>
+</template>
+
+<template name="navbar">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand panel-link" data-panel="active-games" href="#">Psi game</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="{{ activeClass 'active-games' }}">
+              <a href="#" class="panel-link" data-panel="active-games">Active Games</a>
+            </li>
+            <li class="{{ activeClass 'invitations' }}">
+              <a href="#" class="panel-link" data-panel="invitations">Invitations</a>
+            </li>
+            <li class="{{ activeClass 'game-archive' }}">
+              <a href="#" class="panel-link" data-panel="game-archive">Game Archive</a>
+            </li>
+          </ul>
+          <ul class="nav pull-right">
+            <li class="{{ activeClass 'all-users' }}"><a href="#" class="panel-link" data-panel="all-users">All Users</a></li>
+            <li>
+              <a>{{loginButtons align="right"}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

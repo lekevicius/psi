@@ -1,0 +1,63 @@
+<template name="panelInvitations">
+  <h2>Invitations</h2>
+
+  <div class="row">
+    <div class="span6">
+      <h3>Inviting Me</h3>
+      {{> incomingInvitationsList }}
+    </div>
+    <div class="span6">
+      <h3>My Invitations</h3>
+      {{> outgoingInvitationsList }}
+    </div>
+  </div>
+</template>
+
+<template name="incomingInvitationsList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="span4">From</th>
+        <th class="span2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each invitations}}
+        {{> incomingInvitationsListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="incomingInvitationsListItem">
+  <tr>
+    <td>{{ displayName player1 }}</td>
+    <td>
+      <button class="btn btn-small btn-success accept-invitation" type="button">Accept</button>
+      <button class="btn btn-small btn-danger reject-invitation" type="button">Reject</button>
+    </td>
+  </tr>
+</template>
+
+<template name="outgoingInvitationsList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="span4">To</th>
+        <th class="span2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each invitations}}
+        {{> outgoingInvitationsListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="outgoingInvitationsListItem">
+  <tr>
+    <td>{{ displayName player2 }}</td>
+    <td><button class="btn btn-small cancel-invitation" type="button">Cancel</button></td>
+  </tr>
+</template>

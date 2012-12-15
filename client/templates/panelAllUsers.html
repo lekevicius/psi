@@ -1,0 +1,52 @@
+<template name="panelAllUsers">
+  <h2>All Users</h2>
+
+
+
+  <label class="checkbox">
+    <input type="checkbox" {{#if availableForGame currentUser }}checked="checked"{{/if}} class="available-for-game">
+    Anyone can start a game against me
+  </label>
+
+  {{> userList }}
+</template>
+
+<template name="userList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="span2">Username</th>
+        <th class="span1">Won</th>
+        <th class="span7">Lost</th>
+        <th class="span2">Challenge</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        {{> userListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="userListItem">
+  <tr>
+    <td>{{ username }}</td>
+    <td>0</td>
+    <td>0</td>
+    <td>
+      {{#if availableForGame _id }}
+        <button class="btn btn-small btn-primary start-new-game" type="button">Start a Game</button>
+      {{else}}
+        <button
+          class="btn btn-small invite-user" {{#if alreadyInvited _id }}disabled="disabled"{{/if}} type="button">
+          {{#if alreadyInvited _id }}
+            Invited
+          {{else}}
+            Invite for a Game
+          {{/if}}
+        </button>
+      {{/if}}
+    </td>
+  </tr>
+</template>

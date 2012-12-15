@@ -1,0 +1,86 @@
+<template name="panelActiveGames">
+  <h2>Active Games</h2>
+
+  <button class="btn btn-primary btn-large find-new-game">Find a New Game</button>
+
+  {{> activeGamesList }}
+</template>
+
+<template name="activeGamesList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="span2">Against</th>
+        <th class="span3">Dice Rolls</th>
+        <th class="span3">Your Numbers and Score</th>
+        <th class="span3">Opponent Numbers and Score</th>
+        <th class="span1">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each games}}
+        {{> activeGamesListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="activeGamesListItem">
+  <tr>
+    <th>
+      {{#if opponentIsReady }}
+        <span class="label label-warning">Ready</span>
+      {{/if}}
+      {{#if gameOver }}
+        {{#if gameWon }}<span class="label label-success">You Won!</span>{{/if}}
+        {{#if gameTie }}<span class="label label-info">It's a Tie</span>{{/if}}
+        {{#if gameLost }}<span class="label label-important">You Lost</span>{{/if}}
+      {{/if}}
+      {{ displayName opponent }}
+    </th>
+    <td>
+      {{#each diceRollData }}
+        <span class="badge {{#if last }}badge-warning{{/if}}">{{ roll }}</span>
+      {{/each}}
+    </td>
+    <td>
+      <div class="btn-group player-numbers" data-toggle="buttons-radio">
+        {{#each playerNumbers }}
+          <button class="btn {{#if selected }}active btn-warning{{/if}}" {{#if disabled }}disabled="disabled"{{/if}} data-value="{{ number }}">{{ number }}</button>
+        {{/each}}
+      </div>
+
+      <strong>Score: {{ playerScore }}</strong>
+    </td>
+    <td>
+      <div class="btn-group opponent-numbers">
+        {{#each opponentNumbers }}
+          <button class="btn {{#if played }}btn-inverse{{/if}}" disabled="disabled">{{ number }}</button>
+        {{/each}}
+      </div>
+      <strong>Score: {{ opponentScore }}</strong>
+    </td>
+    <td>
+      <button class="btn btn-small btn-info game-info" type="button">i</button>
+      {{#unless gameOver }}
+        <button class="btn btn-small forfeit-game" type="button" {{#if forfeited }}disabled="disabled"{{/if}}>
+          {{#if forfeited }}
+            {{#if opponentForfeited }}
+              Opponent Forfeited
+            {{else}}
+              You Forfeited
+            {{/if}}
+          {{else}}
+          Forfeit
+          {{/if}}
+        </button>
+      {{/unless}}
+      {{#if gameOver }}
+        <button class="btn btn-small btn-danger archive-game" type="button">Archive</button>
+      {{/if}}
+      {{#if forfeited }}
+        <button class="btn btn-small btn-danger archive-game" type="button">Archive</button>
+      {{/if}}
+    </td>
+  </tr>
+</template>

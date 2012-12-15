@@ -1,0 +1,58 @@
+<template name="panelGameArchive">
+  <h2>Game Archive</h2>
+
+  {{> archivedGamesList }}
+</template>
+
+<template name="archivedGamesList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="span2">Against</th>
+        <th class="span3">Dice Rolls</th>
+        <th class="span3">Your Numbers and Score</th>
+        <th class="span3">Opponent Numbers and Score</th>
+        <th class="span1">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each games}}
+        {{> archivedGamesListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="archivedGamesListItem">
+  <tr>
+    <th>
+      {{#if gameWon }}<span class="label label-success">Congratulations!</span>{{/if}}
+      {{#if gameTie }}<span class="label label-info">It's a Tie</span>{{/if}}
+      {{#if gameLost }}<span class="label label-important">Looser</span>{{/if}}
+      {{ displayName opponent }}
+    </th>
+    <td>
+      {{#each diceRollData }}
+        <span class="badge {{#if last }}badge-warning{{/if}}">{{ roll }}</span>
+      {{/each}}
+    </td>
+    <td>
+      {{#each playerNumbers }}<span class="badge">{{ this }}</span>{{/each}}
+      <strong>Score: {{ playerScore }}</strong>
+    </td>
+    <td>
+      {{#each opponentNumbers }}<span class="badge badge-inverse">{{ this }}</span>{{/each}}
+      <strong>Score: {{ opponentScore }}</strong>
+    </td>
+    <td>
+      <button class="btn btn-small btn-info game-info" type="button">i</button>
+      {{#if forfeited }}
+        {{#if opponentForfeited }}
+          Opponent Forfeited
+        {{else}}
+          You Forfeited
+        {{/if}}
+      {{/if}}
+    </td>
+  </tr>
+</template>
